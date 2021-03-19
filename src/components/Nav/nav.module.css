@@ -8,6 +8,10 @@
   position: sticky;
   top: 0;
   z-index: 100;
+
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
 
 .navList {
@@ -30,8 +34,10 @@
 
   font-size: 1.6rem;
   font-weight: 500;
+
+  -webkit-user-drag: none;
 }
 
-.navList *:hover {
+.navList * :hover {
   color: #f5ff01;
 }
