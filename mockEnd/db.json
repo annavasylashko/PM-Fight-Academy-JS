@@ -1,21 +1,25 @@
 {
   "Service": [
     {
+      "id": 1,
       "name": "Box",
       "description": "string",
       "price": 1000
     },
     {
+      "id": 2,
       "name": "Sex",
       "description": "string",
       "price": 2000
     },
     {
+      "id": 3,
       "name": "Flex",
       "description": "string",
       "price": 3000
     },
     {
+      "id": 4,
       "name": "Kung-fu",
       "description": "string",
       "price": 4000
@@ -23,16 +27,49 @@
   ],
   "Coach": [
     {
-      "firstName": "string",
-      "lastName": "string",
-      "birthData": "date",
-      "description": "string",
-      "phoneNumber": "string"
+      "id": 1,
+      "firstName": "Leanne",
+      "lastName": "Graham",
+      "birthDate": "01.10.1975",
+      "description": "I'm selfish, impatient and a little insecure.",
+      "phoneNumber": "380657365488"
+    },
+    {
+      "id": 2,
+      "firstName": "Ervin",
+      "lastName": "Howell",
+      "birthDate": "15.08.1983",
+      "description": "In three words I can sum up everything I've learned about life: it goes on.",
+      "phoneNumber": "380973846170"
+    },
+    {
+      "id": 3,
+      "firstName": "Clementine",
+      "lastName": "Bauch",
+      "birthDate": "23.06.1989",
+      "description": "I am so clever that sometimes I don't understand a single word of what I am saying.",
+      "phoneNumber": "380658374633"
     }
   ],
   "Qualification": [
   ],
-  "Client": [],
+  "Client": [
+    {
+      "id": 1,
+      "name": "Leanne",
+      "phoneNumber": "380657365488"
+    },
+    {
+      "id": 2,
+      "name": "Ervin",
+      "phoneNumber": "380973846170"
+    },
+    {
+      "id": 3,
+      "name": "Clementine",
+      "phoneNumber": "380658374633"
+    }
+  ],
   "Slots": [],
   "Booking": []
 }
