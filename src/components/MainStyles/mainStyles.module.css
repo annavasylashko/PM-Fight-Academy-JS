@@ -17,6 +17,8 @@
   display: none;
 }
 
+/* Buttons */
+
 .addBtn {
   outline: none;
   border: none;
@@ -86,16 +88,18 @@
 .btnContainer {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   gap: 10px;
 
-  width: inherit;
+  width: 25vw;
 }
 
 .btnContainer * {
   width: 50%;
   padding: 0.4rem 0.1rem;
 }
-/*//////////////////////////////////*/
+
+/* Left container */
 
 .leftContainer {
   position: sticky;
@@ -108,27 +112,7 @@
   width: 250px;
 }
 
-.rightContainer {
-  margin-top: 80px;
-  margin-bottom: 20px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-
-  -ms-overflow-style: none;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  scroll-behavior: smooth;
-}
-
-.rightContainer::-webkit-scrollbar {
-  display: none;
-}
-
-.rightContainer form {
-  margin-left: 15px;
-}
+/* Result list */
 
 .resultList {
   display: flex;
@@ -185,7 +169,34 @@
 .resultList p {
   margin: 0;
 }
-/*////////////////////////*/
+
+/* Right container */
+
+.rightContainer {
+  margin-top: 80px;
+  margin-bottom: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  flex: 1;
+
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.rightContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.rightContainer form {
+  margin-left: 15px;
+  width: 25vw;
+}
+
+/* Client section */
 
 .clientContainer {
   width: 50vw;

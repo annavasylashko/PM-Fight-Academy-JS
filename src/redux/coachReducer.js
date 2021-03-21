@@ -1,4 +1,10 @@
-import { GET_COACHES, ADD_COACH, RESET_COACHES } from "./types";
+import {
+  ADD_COACH,
+  GET_COACHES,
+  UPDATE_COACH,
+  DELETE_COACH,
+  RESET_COACHES,
+} from "./types";
 
 const initialState = {
   data: [],
@@ -12,6 +18,16 @@ const handlers = {
   [ADD_COACH]: (state, { payload }) => ({
     ...state,
     data: [...state.data, payload],
+  }),
+  [UPDATE_COACH]: (state, { payload }) => ({
+    ...state,
+    data: [
+      ...state.data.map((item) => (item.id === payload.id ? payload : item)),
+    ],
+  }),
+  [DELETE_COACH]: (state, { payload }) => ({
+    ...state,
+    data: [...state.data.filter((item) => item.id !== payload)],
   }),
   [RESET_COACHES]: (state) => initialState,
   DEFAULT: (state) => state,

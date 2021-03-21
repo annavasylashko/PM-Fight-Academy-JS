@@ -10,6 +10,12 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles((theme) => ({
+  transferList: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: "10px",
+  },
   paper: {
     width: 200,
     height: 230,
@@ -17,9 +23,14 @@ const useStyles = makeStyles((theme) => ({
     background: "#01010152",
     color: "#fff",
   },
+  title: {
+    color: "#f5ff01",
+    marginTop: "0",
+  },
   button: {
     margin: theme.spacing(0.5, 0),
     color: "#f5ff01",
+    width: "6vw",
     borderColor: "#f5ff01",
   },
 }));
@@ -41,7 +52,7 @@ export default function TransferList(props) {
   useEffect(() => {
     setLeft(props.left);
     setRight(props.right);
-  });
+  }, [props.left, props.right]);
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
@@ -113,8 +124,11 @@ export default function TransferList(props) {
   );
 
   return (
-    <Grid container spacing={2} justify="center" alignItems="center">
-      <Grid item>{customList(left)}</Grid>
+    <Grid container className={classes.transferList}>
+      <Grid item>
+        <p className={classes.title}>Available {props.name}</p>
+        {customList(left)}
+      </Grid>
       <Grid item>
         <Grid container direction="column" alignItems="center">
           <Button
@@ -124,6 +138,7 @@ export default function TransferList(props) {
             onClick={handleAllRight}
             disabled={left.length === 0}
             aria-label="move all right"
+            style={{ marginTop: "90px" }}
           >
             ≫
           </Button>
@@ -159,7 +174,10 @@ export default function TransferList(props) {
           </Button>
         </Grid>
       </Grid>
-      <Grid item>{customList(right)}</Grid>
+      <Grid item>
+        <p className={classes.title}>Selected {props.name}</p>
+        {customList(right)}
+      </Grid>
     </Grid>
   );
 }

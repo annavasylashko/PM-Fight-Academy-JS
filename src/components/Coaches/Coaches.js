@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCoach, getCoaches, resetCoach } from "../../redux/actions";
+import {
+  addCoach,
+  getCoaches,
+  updateCoach,
+  deleteCoach,
+  resetCoach,
+} from "../../redux/actions";
 
 import Input from "../Input/Input";
 
@@ -10,8 +16,15 @@ const Coaches = () => {
   const dispatch = useDispatch();
 
   const coaches = useSelector((state) => state.coach.data);
+  const [coach, setUpdateCoach] = useState({});
 
-  const [buttonState, setButtonState] = useState(true);
+  const [isCreateButtonDisabled, setCreateButtonDisabling] = useState(true);
+  const [isDeleteButtonDisabled, setDeleteButtonDisabling] = useState(true);
+  const [isUpdateButtonDisabling, setUpdateButtonDisabling] = useState(true);
+
+  const [isCreateButtonVisible, setCreateButtonVisibility] = useState(true);
+  const [isDeleteButtonVisible, setDeleteButtonVisibility] = useState(false);
+  const [isUpdateButtonVisible, setUpdateButtonVisibility] = useState(false);
 
   const initialInputs = [
     {
@@ -48,6 +61,14 @@ const Coaches = () => {
     return () => dispatch(resetCoach());
   }, []);
 
+  const initialFormState = () => {
+    setCreateButtonDisabling(true);
+    setCreateButtonVisibility(true);
+    setDeleteButtonVisibility(false);
+    setUpdateButtonVisibility(false);
+    setInputs((state) => [...initialInputs]);
+  };
+
   const inputHandler = (e) => {
     setInputs((state) => {
       let new_state = [...state];
@@ -57,7 +78,8 @@ const Coaches = () => {
       return new_state;
     });
     if (e.target.value && inputs.every((i) => i.value.length > 1)) {
-      setButtonState(false);
+      setCreateButtonDisabling(false);
+      setUpdateButtonDisabling(false);
     }
   };
 
@@ -69,7 +91,7 @@ const Coaches = () => {
         new_state[index].error = "Empty field";
         return new_state;
       });
-      setButtonState(true);
+      setCreateButtonDisabling(true);
     }
   };
 
@@ -87,14 +109,71 @@ const Coaches = () => {
     setInputs((state) => []);
   };
 
+  const updateHandler = () => {
+    dispatch(
+      updateCoach({
+        firstName: inputs.find((i) => i.name === "firstName").value,
+        lastName: inputs.find((i) => i.name === "lastName").value,
+        birthDate: inputs.find((i) => i.name === "birthDate").value,
+        description: inputs.find((i) => i.name === "description").value,
+        phoneNumber: inputs.find((i) => i.name === "phoneNumber").value,
+        id: coach.id,
+      })
+    );
+    initialFormState();
+  };
+
+  const deleteHandler = () => {
+    dispatch(deleteCoach(coach.id));
+    initialFormState();
+  };
+
   const addForm = (e) => {
-    setButtonState(true);
-    setInputs((state) => [...initialInputs]);
+    initialFormState();
+  };
+
+  const setCoach = (coachId) => {
+    return (e) => {
+      setCreateButtonVisibility(false);
+      setDeleteButtonVisibility(true);
+      setUpdateButtonVisibility(true);
+      setDeleteButtonDisabling(false);
+      const coach = coaches.find((coach) => coach.id === coachId);
+      setUpdateCoach(coach);
+      const coachInput = [
+        {
+          name: "firstName",
+          value: coach.firstName,
+          error: "",
+        },
+        {
+          name: "lastName",
+          value: coach.lastName,
+          error: "",
+        },
+        {
+          name: "birthDate",
+          value: coach.birthDate,
+          error: "",
+        },
+        {
+          name: "description",
+          value: coach.description,
+          error: "",
+        },
+        {
+          name: "phoneNumber",
+          value: coach.phoneNumber,
+          error: "",
+        },
+      ];
+      setInputs((state) => [...coachInput]);
+    };
   };
 
   const formatCoaches = () =>
     coaches?.map((coach) => (
-      <p key={coach.id}>
+      <p key={coach.id} onClick={setCoach(coach.id)}>
         {coach.firstName} {""}
         {coach.lastName}
       </p>
@@ -120,24 +199,38 @@ const Coaches = () => {
                 onChange={inputHandler}
                 type="text"
                 name={i.name}
+                defaultValue={i.value}
                 error={i?.error}
               />
             ))}
             <div className={styles.btnContainer}>
-              <button
-                type="submit"
-                disabled={buttonState}
-                className={styles.addBtn}
-              >
-                <p className={styles.addBtnText}>Done</p>
-              </button>
-              <button
-                type="reset"
-                disabled={buttonState}
-                className={styles.addBtn}
-              >
-                <p className={styles.addBtnText}>Delete</p>
-              </button>
+              {isDeleteButtonVisible && (
+                <button
+                  onClick={deleteHandler}
+                  disabled={isDeleteButtonDisabled}
+                  className={styles.addBtn}
+                >
+                  <p className={styles.addBtnText}>Delete</p>
+                </button>
+              )}
+              {isCreateButtonVisible && (
+                <button
+                  type="submit"
+                  disabled={isCreateButtonDisabled}
+                  className={styles.addBtn}
+                >
+                  <p className={styles.addBtnText}>Done</p>
+                </button>
+              )}
+              {isUpdateButtonVisible && (
+                <button
+                  onClick={updateHandler}
+                  disabled={isUpdateButtonDisabling}
+                  className={styles.addBtn}
+                >
+                  <p className={styles.addBtnText}>Update</p>
+                </button>
+              )}
             </div>
           </form>
         )}

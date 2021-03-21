@@ -1,18 +1,6 @@
 {
   "Service": [
     {
-      "id": 1,
-      "name": "Box",
-      "description": "string",
-      "price": 1000
-    },
-    {
-      "id": 2,
-      "name": "Sex",
-      "description": "string",
-      "price": 2000
-    },
-    {
       "id": 3,
       "name": "Flex",
       "description": "string",
@@ -29,6 +17,18 @@
       "description": "string",
       "price": "100",
       "id": 5
+    },
+    {
+      "name": "Box",
+      "description": "string",
+      "price": "2000",
+      "id": 6
+    },
+    {
+      "name": "Anna",
+      "description": "str",
+      "price": "3000",
+      "id": 7
     }
   ],
   "Coach": [
@@ -43,7 +43,7 @@
     {
       "id": 2,
       "firstName": "Ervin",
-      "lastName": "Howell",
+      "lastName": "Howell's",
       "birthDate": "15.08.1983",
       "description": "In three words I can sum up everything I've learned about life: it goes on.",
       "phoneNumber": "380973846170"
@@ -55,6 +55,14 @@
       "birthDate": "23.06.1989",
       "description": "I am so clever that sometimes I don't understand a single word of what I am saying.",
       "phoneNumber": "380658374633"
+    },
+    {
+      "firstName": "Mathew",
+      "lastName": "Smith",
+      "birthDate": "20.12.1999",
+      "description": "string",
+      "phoneNumber": "380782553411",
+      "id": 4
     }
   ],
   "Qualification": [],

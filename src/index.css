@@ -33,6 +33,23 @@ html *::selection {
   color: #010101;
 }
 
+html *::-webkit-scrollbar {
+  display: none;
+}
+html *::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+html *::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+html *::-webkit-scrollbar-thumb {
+  background: #f5ff01;
+}
+html *::-webkit-scrollbar-thumb:hover {
+  background: #f5ff01;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

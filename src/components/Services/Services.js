@@ -6,10 +6,12 @@ import {
   getServices,
   resetService,
   updateService,
+  getCoaches,
+  resetCoach,
 } from "../../redux/actions";
 
 import Input from "../Input/Input";
-
+import TransferList from "../TransferList/TransferList";
 import styles from "../MainStyles/mainStyles.module.css";
 
 const Services = () => {
@@ -17,6 +19,8 @@ const Services = () => {
 
   const services = useSelector((state) => state.service.data);
   const [service, setUpdateService] = useState({});
+
+  const coaches = useSelector((state) => state.coach.data);
 
   const [isCreateButtonDisabled, setCreateButtonDisabling] = useState(true);
   const [isDeleteButtonDisabled, setDeleteButtonDisabling] = useState(true);
@@ -50,6 +54,11 @@ const Services = () => {
     dispatch(getServices());
     return () => dispatch(resetService());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getCoaches());
+    return () => dispatch(resetCoach());
+  }, []);
 
   const initialFormState = () => {
     setCreateButtonDisabling(true);
@@ -154,6 +163,9 @@ const Services = () => {
       </p>
     ));
 
+  const formatCoaches = () =>
+    coaches?.map((coach) => `${coach.firstName} ${coach.lastName}`);
+
   return (
     <div className={styles.container}>
       <div className={styles.leftContainer}>
@@ -179,6 +191,15 @@ const Services = () => {
               />
             ))}
             <div className={styles.btnContainer}>
+              {isDeleteButtonVisible && (
+                <button
+                  onClick={deleteHandler}
+                  disabled={isDeleteButtonDisabled}
+                  className={styles.addBtn}
+                >
+                  <p className={styles.addBtnText}>Delete</p>
+                </button>
+              )}
               {isCreateButtonVisible && (
                 <button
                   type="submit"
@@ -197,19 +218,11 @@ const Services = () => {
                   <p className={styles.addBtnText}>Update</p>
                 </button>
               )}
-
-              {isDeleteButtonVisible && (
-                <button
-                  onClick={deleteHandler}
-                  disabled={isDeleteButtonDisabled}
-                  className={styles.addBtn}
-                >
-                  <p className={styles.addBtnText}>Delete</p>
-                </button>
-              )}
             </div>
           </form>
         )}
+
+        <TransferList left={formatCoaches()} right={[]} name="coaches" />
       </div>
     </div>
   );
